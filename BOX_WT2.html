@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grid Layout with Registration Display</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 20px auto 10px auto;
+      display: block;
+      border: 2px solid #000;
+      background: #ccc;
+      line-height: 100px;
+      font-weight: bold;
+    }
+
+    .title-box {
+      background-color: #333;
+      color: #fff;
+      padding: 15px 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      width: 100%;
+      height: calc(100vh - 200px);
+    }
+
+    .box {
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      border: 2px solid #000;
+      box-sizing: border-box;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 0%;
+      box-shadow: 0px 0px 10px 10px #aaa;
+      text-align: left;
+      max-width: 400px;
+      max-height: 100%;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .gender-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 5px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      margin-top: 15px;
+    }
+
+    .checkbox-group input {
+      margin: 10px;
+    }
+
+    button {
+      background-color: #28a745;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .user-display {
+      margin-top: 20px;
+      font-size: 1rem;
+      color: #333;
+      text-align: left;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .user-display p {
+      margin: 5px 0;
+    }
+
+    .user-display hr {
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">Logo</div>
+
+  <div class="title-box">Welcome to My Grid Layout</div>
+
+  <div class="container">
+    <div class="box box1">Box 1</div>
+
+    <!-- Registration Form in Box 2 -->
+    <div class="box box2">
+      <div class="form-container">
+        <h2>Registration Form</h2>
+        <form id="registrationForm">
+          <label for="fullname">Full Name:</label>
+          <input type="text" id="fullname" name="fullname" required>
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+
+          <label for="confirm-password">Confirm Password:</label>
+          <input type="password" id="confirm-password" name="confirm-password" required>
+
+          <label for="dob">Date of Birth:</label>
+          <input type="date" id="dob" name="dob" required>
+
+          <label for="country">Country:</label>
+          <select id="country" name="country" required>
+            <option value="">Select Country</option>
+            <option value="Bangladesh">Bangladesh</option>
+            <option value="Germany">Germany</option>
+            <option value="USA">United States</option>
+            <option value="UK">United Kingdom</option>
+            <option value="Canada">Canada</option>
+            <option value="India">India</option>
+            <option value="Australia">Australia</option>
+          </select>
+
+          <label>Gender:</label>
+          <div class="gender-group">
+            <input type="radio" id="male" name="gender" value="Male" required>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female">
+            <label for="female">Female</label>
+          </div>
+
+          <label for="comments">Comments:</label>
+          <textarea id="comments" name="comments" rows="4"></textarea>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="terms" name="terms" required>
+            <label for="terms">I agree to the Terms and Conditions</label>
+          </div>
+
+          <button type="submit">Register</button>
+        </form>
+        <div class="user-display" id="userDisplay"></div>
+      </div>
+    </div>
+
+    <div class="box box3">Box 3</div>
+    <div class="box box4">Box 4</div>
+  </div>
+
+  <script>
+    document.getElementById("registrationForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const fullname = document.getElementById("fullname").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
+      const dob = document.getElementById("dob").value;
+      const country = document.getElementById("country").value;
+      const gender = document.querySelector('input[name="gender"]:checked');
+      const comments = document.getElementById("comments").value.trim();
+      const termsAccepted = document.getElementById("terms").checked;
+
+      const nameRegex = /^[a-zA-Z\s]+$/;
+      const emailRegex = /^\d{2}-\d{5}-[1-3]@student\.aiub\.edu$/;
+      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+
+      let errors = [];
+
+      if (!nameRegex.test(fullname)) {
+        errors.push("Full Name should contain only letters and spaces.");
+      }
+
+      if (!emailRegex.test(email)) {
+        errors.push("Email must be a valid xx-xxxxx-x@student.aiub.edu address.");
+      }
+
+      if (!passwordRegex.test(password)) {
+        errors.push("Password must be at least 6 characters, include letters and numbers.");
+      }
+
+      if (password !== confirmPassword) {
+        errors.push("Passwords do not match.");
+      }
+
+      if (!gender) {
+        errors.push("Please select a gender.");
+      }
+
+      if (!dob) {
+        errors.push("Please select your date of birth.");
+      }
+
+      if (!country) {
+        errors.push("Please select a country.");
+      }
+
+      if (!termsAccepted) {
+        errors.push("You must agree to the Terms and Conditions.");
+      }
+
+      const displayDiv = document.getElementById("userDisplay");
+
+      if (errors.length > 0) {
+        displayDiv.innerHTML = `<p style="color:red;"><strong>${errors.join("<br>")}</strong></p>`;
+      } else {
+        displayDiv.innerHTML = `
+          <hr>
+          <p><strong>Name:</strong> ${fullname}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>DOB:</strong> ${dob}</p>
+          <p><strong>Country:</strong> ${country}</p>
+          <p><strong>Gender:</strong> ${gender.value}</p>
+          <p><strong>Comments:</strong> ${comments || "None"}</p>
+          <hr>
+          <p style="color:green;"><strong>Registration successful!</strong></p>
+        `;
+        this.reset();
+      }
+    });
+  </script>
+</body>
+</html>
