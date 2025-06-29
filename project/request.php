@@ -81,7 +81,7 @@
 
         if (mysqli_num_rows($result) > 0) {
             echo "<h3>Select up to 10 Cities</h3>";
-            echo "<form method='POST' action='wt2.php'>";
+            echo "<form method='POST' action='showaqi.php'>";
             echo "<div id='City-checkboxes'>";
 
             while ($row = mysqli_fetch_assoc($result)) {
